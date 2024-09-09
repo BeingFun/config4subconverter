@@ -56,8 +56,15 @@
                 "server": "dns_fakeip"
             },
             {
-                "rule_set": [
-                    "geosite-cn"
+                "rules": [
+                    {
+                        "domain_suffix": [
+                            "aggsub.shila.nyc.mn"
+                        ],
+                        "rule_set": [
+                            "geosite-cn"
+                        ]
+                    }
                 ],
                 "type": "logical",
                 "mode": "or",
