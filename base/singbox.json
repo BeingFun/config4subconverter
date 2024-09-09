@@ -27,7 +27,7 @@
                 "detour": "DIRECT"
             },
             {
-                "tag": "block",
+                "tag": "dns_block",
                 "address": "rcode://success"
             }
         ],
@@ -40,7 +40,7 @@
             },
             {
                 "rule_set": [
-                    "geosite:category-ads"
+                    "geosite-category-ads"
                 ],
                 "server": "dns_block",
                 "disable_cache": true
@@ -56,16 +56,28 @@
                 "server": "dns_fakeip"
             },
             {
-                "rule_set": [
-                    "geosite:cn"
+                "domain_suffix": [
+                    "nyc.mn",
+                    "cloudns.be"
                 ],
+                "rule_set": [
+                    "geosite-cn"
+                ],
+                "type": "logical",
+                "mode": "or",
                 "server": "dns_direct"
             },
             {
-                "rule_set": [
-                    "geosite:geolocation-!cn",
-                    "geosite:gfw"
+                "rules": [
+                    {
+                        "rule_set": [
+                            "geosite-geolocation-!cn",
+                            "geosite-goproxy"
+                        ]
+                    }
                 ],
+                "type": "logical",
+                "mode": "or",
                 "server": "dns_proxy"
             }
         ],
@@ -79,7 +91,7 @@
     },
     "ntp": {
         "enabled": true,
-        "server": "time.apple.com",
+        "server": "time.windows.com",
         "server_port": 123,
         "interval": "30m",
         "detour": "DIRECT"
@@ -106,37 +118,51 @@
     ],
     "outbounds": [],
     "route": {
-        "rules": [],
+        "rules": [
+            {
+                "rules": [
+                    {
+                        "rule_set": [
+                            "geosite-geolocation-!cn"
+                        ]
+                    }
+                ],
+                "outbound": "节点选择",
+                "name": "",
+                "type": "logical",
+                "mode": "or"
+            }
+        ],
         "final": "漏网之鱼",
         "auto_detect_interface": true,
         "rule_set": [
             {
-                "tag": "geosite:category-ads",
+                "tag": "geosite-category-ads",
                 "type": "remote",
                 "format": "binary",
                 "download_detour": "DIRECT",
-                "url": "https://raw.githubusercontent.com/KaringX/karing-ruleset/sing/geo/geosite/category-ads.srs"
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ads.srs"
             },
             {
-                "tag": "geosite:geolocation-!cn",
+                "tag": "geosite-geolocation-!cn",
                 "type": "remote",
                 "format": "binary",
                 "download_detour": "DIRECT",
-                "url": "https://raw.githubusercontent.com/KaringX/karing-ruleset/sing/geo/geosite/geolocation-!cn.srs"
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-geolocation-!cn.srs"
             },
             {
-                "tag": "geosite:gfw",
+                "tag": "geosite-goproxy",
                 "type": "remote",
                 "format": "binary",
                 "download_detour": "DIRECT",
-                "url": "https://raw.githubusercontent.com/KaringX/karing-ruleset/sing/geo/geosite/gfw.srs"
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-goproxy.srs"
             },
             {
-                "tag": "geosite:cn",
+                "tag": "geosite-cn",
                 "type": "remote",
                 "format": "binary",
                 "download_detour": "DIRECT",
-                "url": "https://raw.githubusercontent.com/KaringX/karing-ruleset/sing/geo/geosite/cn.srs"
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs"
             }
         ]
     },
