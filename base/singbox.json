@@ -47,7 +47,7 @@
             },
             {
                 "rule_set": [
-                    "geosite:geolocation-!cn"
+                    "geosite-geolocation-!cn"
                 ],
                 "query_type": [
                     "A",
