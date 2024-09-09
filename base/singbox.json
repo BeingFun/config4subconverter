@@ -131,7 +131,6 @@
                     }
                 ],
                 "outbound": "节点选择",
-                "name": "节点选择[自定义]",
                 "type": "logical",
                 "mode": "or"
             }
