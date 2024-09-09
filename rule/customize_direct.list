@@ -1,4 +1,7 @@
 # 个人直连规则集
+DOMAIN-SUFFIX,shila.nyc.mn
+DOMAIN-SUFFIX,shila.cloudns.be
+
 # DOMAIN,apple.comscoreresearch.com
 # DOMAIN-SUFFIX,me.com
 # IP-CIDR,17.0.0.0/8,no-resolve

@@ -56,10 +56,6 @@
                 "server": "dns_fakeip"
             },
             {
-                "domain_keyword": [
-                    "shila.nyc.mn",
-                    "shila.cloudns.be"
-                ],
                 "rule_set": [
                     "geosite-cn"
                 ],
