@@ -8,20 +8,12 @@
         "servers": [
             {
                 "tag": "dns_proxy",
-                "address": [
-                    "https://1.1.1.1/dns-query",
-                    "https://8.8.8.8/dns-query",
-                    "https://dns.google/dns-query",
-                    "https://dns64.dns.google/dns-query"
-                ],
+                "address": "https://8.8.8.8/dns-query",
                 "address_resolver": "dns_resolver"
             },
             {
                 "tag": "dns_direct",
-                "address": [
-                    "https://dns.alidns.com/dns-query",
-                    "https://doh.pub/dns-query"
-                ],
+                "address": "https://dns.alidns.com/dns-query",
                 "address_resolver": "dns_resolver",
                 "detour": "DIRECT"
             },
@@ -31,11 +23,7 @@
             },
             {
                 "tag": "dns_resolver",
-                "address": [
-                    "https://223.5.5.5/dns-query",
-                    "https://1.1.1.1/dns-query",
-                    "https://8.8.8.8/dns-query"
-                ],
+                "address": "https://223.5.5.5/dns-query",
                 "detour": "DIRECT"
             },
             {
@@ -51,15 +39,15 @@
                 "server": "dns_resolver"
             },
             {
-                "geosite": [
-                    "category-ads-all"
+                "rule_set": [
+                    "geosite:category-ads"
                 ],
                 "server": "dns_block",
                 "disable_cache": true
             },
             {
-                "geosite": [
-                    "geolocation-!cn"
+                "rule_set": [
+                    "geosite:geolocation-!cn"
                 ],
                 "query_type": [
                     "A",
@@ -68,8 +56,15 @@
                 "server": "dns_fakeip"
             },
             {
-                "geosite": [
-                    "geolocation-!cn"
+                "rule_set": [
+                    "geosite:cn"
+                ],
+                "server": "dns_direct"
+            },
+            {
+                "rule_set": [
+                    "geosite:geolocation-!cn",
+                    "geosite:gfw"
                 ],
                 "server": "dns_proxy"
             }
@@ -99,8 +94,10 @@
         {
             "type": "tun",
             "tag": "tun-in",
-            "inet4_address": "172.19.0.1/30",
-            "inet6_address": "fdfe:dcba:9876::1/126",
+            "address": [
+                "172.18.0.1/30",
+                "fdfe:dcba:9876::1/126"
+            ],
             "auto_route": true,
             "strict_route": true,
             "stack": "mixed",
@@ -110,7 +107,38 @@
     "outbounds": [],
     "route": {
         "rules": [],
-        "auto_detect_interface": true
+        "final": "漏网之鱼",
+        "auto_detect_interface": true,
+        "rule_set": [
+            {
+                "tag": "geosite:category-ads",
+                "type": "remote",
+                "format": "binary",
+                "download_detour": "DIRECT",
+                "url": "https://raw.githubusercontent.com/KaringX/karing-ruleset/sing/geo/geosite/category-ads.srs"
+            },
+            {
+                "tag": "geosite:geolocation-!cn",
+                "type": "remote",
+                "format": "binary",
+                "download_detour": "DIRECT",
+                "url": "https://raw.githubusercontent.com/KaringX/karing-ruleset/sing/geo/geosite/geolocation-!cn.srs"
+            },
+            {
+                "tag": "geosite:gfw",
+                "type": "remote",
+                "format": "binary",
+                "download_detour": "DIRECT",
+                "url": "https://raw.githubusercontent.com/KaringX/karing-ruleset/sing/geo/geosite/gfw.srs"
+            },
+            {
+                "tag": "geosite:cn",
+                "type": "remote",
+                "format": "binary",
+                "download_detour": "DIRECT",
+                "url": "https://raw.githubusercontent.com/KaringX/karing-ruleset/sing/geo/geosite/cn.srs"
+            }
+        ]
     },
     "experimental": {
         "cache_file": {
