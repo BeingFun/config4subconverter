@@ -135,7 +135,7 @@
                 "domain_suffix": [
                     ".shila.nyc.mn"
                 ],
-                "outbound": "direct"
+                "outbound": "DIRECT"
             }
         ],
         "final": "漏网之鱼",
