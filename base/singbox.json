@@ -58,9 +58,6 @@
             {
                 "rules": [
                     {
-                        "domain_suffix": [
-                            "aggsub.shila.nyc.mn"
-                        ],
                         "rule_set": [
                             "geosite-cn"
                         ]
@@ -133,6 +130,12 @@
                 "outbound": "节点选择",
                 "type": "logical",
                 "mode": "or"
+            },
+            {
+                "domain_suffix": [
+                    ".shila.nyc.mn"
+                ],
+                "outbound": "direct"
             }
         ],
         "final": "漏网之鱼",
